@@ -1,0 +1,15 @@
+apiVersion: network.openshift.io/v1
+kind: EgressNetworkPolicy
+metadata:
+  name: bookinfo-network-policy 
+  namespace: bookinfo
+spec:
+  egress:
+    {{- range $key, $val := .Values.dnsName}}
+    - to:
+        dnsName: {{ $val | quote }}
+      type: Allow
+    {{- end }}
+    - to:
+        cidrSelector: 0.0.0.0/0
+      type: Deny
