@@ -5,7 +5,7 @@ ISTIO_SYSTEM=istio-system
 CONTROL_PLANE_NAME=basic-install 
 MESH_ROUTE_NAME=api
 
-#oc new-project ${BOOKINFO}
+oc new-project ${BOOKINFO}
 
 echo "Install VirtualService & Bookinfo App in namespace \"${BOOKINFO}\" and Gateway in namespace \"${ISTIO_SYSTEM}\"..."
 
@@ -17,7 +17,7 @@ helm install basic-gateway-configuration -n ${BOOKINFO} \
 
 echo "Install Bookinfo..."
 
-helm install bookinfo -n ${BOOKINFO} scenarios/simple-ingress-with-bookinfo/charts/bookinfo
+helm install bookinfo -n ${BOOKINFO} scenarios/simple-ingress-gateway-with-bookinfo/charts/bookinfo
 
 echo "Done."
 

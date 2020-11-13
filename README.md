@@ -27,3 +27,4 @@ to see how service mesh can be used.
 
  - [Simple Ingress Gateway with Bookinfo](docs/simple-ingress-gateway-with-bookinfo.md)
  - [Deny all egress by default](docs/deny-all-egress-by-default.md)
+ - [Upgrade OSSM Control Plane to 2.x](docs/upgrade-control-plane.md)
