@@ -47,3 +47,7 @@ oc get serviceentry -n bookinfo
 
 oc get egressnetworkpolicy -n bookinfo -o yaml
 ```
+
+### 7. Cleanup 
+
+```sh scenarios/deny-all-egress/scripts/cleanup.sh```
