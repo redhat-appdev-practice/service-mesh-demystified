@@ -25,4 +25,5 @@ First, install the operators in the cluster.
 Now that the control plane is installed, you may want to go through some examples
 to see how service mesh can be used.
 
+ - [Simple Ingress Gateway with Bookinfo](docs/simple-ingress-gateway-with-bookinfo.md)
  - [Deny all egress by default](docs/deny-all-egress-by-default.md)
