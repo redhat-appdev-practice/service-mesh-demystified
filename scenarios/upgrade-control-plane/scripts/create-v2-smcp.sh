@@ -20,6 +20,10 @@ oc new-project ${V2_CONTROL_PLANE}
 
 oc create -n ${V2_CONTROL_PLANE} -f ${MESH_NAME}.v2.yaml
 
+echo "Adding api route to service mesh control plane..."
+
+helm install smcp-route -n ${V2_CONTROL_PLANE} scenarios/upgrade-control-plane/charts/smcp-route
+
 echo "Done."
 
 exit 0

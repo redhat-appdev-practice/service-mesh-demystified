@@ -28,3 +28,27 @@ Make the appropriate edits to the resource.
 This will create a backup of your current control plane and a conversion to version 2.x. Then, it will create a new project for the control plane and install the control plane components.
 
 ```sh scenarios/upgrade-control-plane/scripts/create-v2-smcp.sh```
+
+### Migrate the BookInfo Application to the new Service Mesh
+
+```sh scenarios/upgrade-control-plane/scripts/migrate-bookinfo.sh```
+
+### Test out the application
+
+Open the following URL in a browser.
+
+
+```echo "https://$(oc get route api -n istio-system-v2 -o jsonpath={'.spec.host'})/productpage"```
+
+### Clean up the original control plane
+
+```sh scenarios/upgrade-control-plane/scripts/cleanup-v1-smcp.sh```
+
+Continue to test as much as you like.  Visit the Kiali page to watch the traffic graphs.
+
+```echo "https://$(oc get route kiali -n istio-system-v2 -o jsonpath={'.spec.host'})"```
+
+
+### Cleanup
+
+```sh scenarios/upgrade-control-plane/scripts/cleanup-all.sh```
