@@ -14,7 +14,8 @@ echo "Creating the service mesh control plane component as a v2 resource..."
 
 oc get smcp ${MESH_NAME} -o yaml > ${MESH_NAME}.v2.yaml
 
-sed -i.bu 's/istio-system/istio-system-v2/g' ${MESH_NAME}.v2.yaml
+sed -i.bu -e 's/istio-system/istio-system-v2/g' \
+  -e '/version: v1.1/d' ${MESH_NAME}.v2.yaml
 
 oc new-project ${V2_CONTROL_PLANE}
 
