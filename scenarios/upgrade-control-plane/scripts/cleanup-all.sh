@@ -16,7 +16,7 @@ oc delete project ${BOOKINFO}
 
 echo "Deleting control plane..."
 
-helm delete control-plane -n istio-system-v2
+helm delete smcp-route -n istio-system-v2
 
 oc delete project istio-system-v2
 

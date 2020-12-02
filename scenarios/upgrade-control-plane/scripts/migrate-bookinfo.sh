@@ -6,6 +6,9 @@ ISTIO_SYSTEM_V2=istio-system-v2
 CONTROL_PLANE_NAME=basic-install 
 MESH_ROUTE_NAME=api
 
+echo "Remove current bookinfo project"
+helm delete bookinfo -n ${BOOKINFO}
+
 echo "Move Gateway from namespace \"${ISTIO_SYSTEM}\" to \"${ISTIO_SYSTEM_V2}\"..."
 
 helm delete basic-gateway-configuration -n ${BOOKINFO}
@@ -18,7 +21,7 @@ helm install basic-gateway-configuration -n ${BOOKINFO} \
 
 #echo "Install Bookinfo..."
 
-#helm install bookinfo -n ${BOOKINFO} scenarios/simple-ingress-gateway-with-bookinfo/charts/bookinfo
+helm install bookinfo -n ${BOOKINFO} scenarios/simple-ingress-gateway-with-bookinfo/charts/bookinfo
 
 echo "Done."
 
