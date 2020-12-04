@@ -1,0 +1,4 @@
+control_plane_name: basic-install
+is_production_deployment: true
+ingressgateway_name: custom-ingressgateway
+elasticsearch_volume_size: 50Gi

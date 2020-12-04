@@ -16,7 +16,7 @@ If the output is empty, then you are good to proceed.  Otherwise, consult the [S
 
 You can follow the following procedure to fix the non-upgradeable components found.
 
-```oc get smcp.v1.maistra.io <smcp_name> > smcp-resource.yaml```
+```oc get smcp.v1.maistra.io <smcp_name> -o yaml > smcp-resource.yaml```
 
 Make the appropriate edits to the resource.
 
