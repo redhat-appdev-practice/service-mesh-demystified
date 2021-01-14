@@ -29,4 +29,5 @@ to see how service mesh can be used.
  - [Deny all egress by default](docs/deny-all-egress-by-default.md)
  - [Upgrade OSSM Control Plane to 2.x](docs/upgrade-control-plane.md)
  - [Zero downtime upgrade](docs/zero-downtime-upgrade.md)
+ - [Upgrade OSSM Control Plane while using NodePort](docs/upgrade-nodeport.md)
  - [Persistent Storage for Jaeger and ElasticSearch](docs/persistent-storage-jaeger-elasticsearch.md)
