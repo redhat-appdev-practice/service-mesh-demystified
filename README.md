@@ -30,3 +30,4 @@ to see how service mesh can be used.
  - [Upgrade OSSM Control Plane to 2.x](docs/upgrade-control-plane.md)
  - [Zero downtime upgrade](docs/zero-downtime-upgrade.md)
  - [Persistent Storage for Jaeger and ElasticSearch](docs/persistent-storage-jaeger-elasticsearch.md)
+ - [Multiple ingress](docs/multiple-ingress.md)
