@@ -67,10 +67,17 @@ spec:
     grafana:
       enabled: true
     jaeger:
+{{- if .Values.is_production_deployment }}
       name: jaeger-production
       install:
         storage:
           type: Elasticsearch
+{{- else }}
+      name: jaeger
+      install:
+        storage:
+          type: Memory
+{{- end }}
         ingress:
           enabled: true
     kiali:
