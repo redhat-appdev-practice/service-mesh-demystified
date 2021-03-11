@@ -4,9 +4,9 @@ This project is inspired by the [Service Mesh Patterns](https://github.com/trevo
 
 # Dependencies
 
-To install this, you will need access to an OpenShift cluster that can support OSSM 1.x.  The installation utilizes operators thus you will also need administrator level access on the cluster.
+To install this, you will need access to an OpenShift cluster that can support OSSM 2.x.  At the time of this writing, that would be OCP 4.6.  The installation utilizes operators thus you will also need administrator level access on the cluster.
 
-You will also need [Helm](https://helm.sh) installed locally.
+You will also need [Helm](https://helm.sh) and the openshift client installed locally.
 
 # Getting Started
 
