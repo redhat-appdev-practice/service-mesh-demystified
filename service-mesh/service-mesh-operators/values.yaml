@@ -1,4 +1,2 @@
 approval_strategy: "Automatic"
-
-# Elasticsearch follows the OCP version.  Modify this as needed.
-elasticsearch_version: "4.6"
+elasticsearch_version: 4.6

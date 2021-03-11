@@ -4,7 +4,7 @@ kind: Subscription
 metadata:
   name: elasticsearch-operator
 spec:
-  channel: {{ .Values.elasticsearch_version }}
+  channel: {{ quote .Values.elasticsearch_version }}
   installPlanApproval: {{ .Values.approval_strategy }}
   name: elasticsearch-operator
   source: redhat-operators
