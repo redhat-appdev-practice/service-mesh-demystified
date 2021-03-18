@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+{{- if $.Values.global.tlsSecured }}
+  annotations:
+     service.alpha.openshift.io/serving-cert-secret-name: keycloak
+{{- end }}
+  labels:
+    app: bookinfo
+    name: keycloak
+    {{- range $label := $.Values.global.labels }}
+    {{ $label.key }} : {{ tpl $label.value $ }}
+    {{- end}}
+  name: keycloak
+spec:
+  selector:
+    deploymentConfig: keycloak
+  ports:
+  {{- if $.Values.global.tlsSecured }}
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+  {{- else }}
+    - port: 8080
+      targetPort: 8080
+  {{- end }}

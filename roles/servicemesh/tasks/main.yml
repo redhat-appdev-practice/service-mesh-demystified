@@ -1,0 +1,26 @@
+---
+- name: Create project for operator
+  community.kubernetes.k8s:
+    name: operators-openshift-redhat
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Create subscriptions for operators
+  community.kubernetes.k8s:
+    state: present
+    src: "{{ item }}" 
+  loop:
+    - elasticsearch-subscription.yaml
+    - jaeger-subscription.yaml
+    - kiali-subscription.yaml
+    - servicemesh-subscription.yaml
+
+- name: Pause to give the operators time to install
+  pause:
+    minutes: 3
+
+- name: Create service mesh control plane
+  community.kubernetes.k8s:
+    state: present
+    src: servicemeshcontrolplane.yaml

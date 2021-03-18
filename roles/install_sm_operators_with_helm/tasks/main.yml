@@ -1,0 +1,56 @@
+---
+- name: Install operators 
+  community.kubernetes.helm:
+    name: service-mesh-operators
+    chart_ref: "../charts/install_sm_operators_with_helm/service-mesh-operators"
+    release_namespace: openshift-operators
+    values:
+      approval_strategy: "{{ approval_strategy }}"
+- name: Wait for Elasticsearch operator to install
+  community.kubernetes.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    namespace: openshift-operators
+    name: elasticsearch-operator 
+    wait: yes
+    wait_condition:
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+  when: approval_strategy == "Automatic"
+- name: Wait for Jaeger operator to install
+  community.kubernetes.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    namespace: openshift-operators
+    name: jaeger-product 
+    wait: yes
+    wait_condition:
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+  when: approval_strategy == "Automatic"
+- name: Wait for Kiali operator to install
+  community.kubernetes.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    namespace: openshift-operators
+    name: kiali-ossm 
+    wait: yes
+    wait_condition:
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+  when: approval_strategy == "Automatic"
+- name: Wait for Servicemesh operator to install
+  community.kubernetes.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    namespace: openshift-operators
+    name: servicemeshoperator 
+    wait: yes
+    wait_condition:
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+  when: approval_strategy == "Automatic"

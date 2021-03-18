@@ -1,0 +1,6 @@
+---
+- name: Install Service Mesh Control Plane
+  hosts: localhost
+
+  roles:
+  - install_smcp_with_helm

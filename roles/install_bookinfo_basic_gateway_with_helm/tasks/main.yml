@@ -1,0 +1,23 @@
+- name: Getting control plane route name 
+  community.kubernetes.k8s_info:
+    api_version: route.openshift.io/v1
+    kind: Route
+    name: "{{ control_plane_route_name }}"
+    namespace: "{{ control_plane_namespace }}"
+  register: route_info
+- name: Installing gateway and virtual service
+  community.kubernetes.helm:
+    name: basic-gateway-configuration
+    chart_ref: "../charts/install_bookinfo_basic_gateway_with_helm/basic-gateway-configuration"
+    release_namespace: "{{ deploy_namespace }}"
+    create_namespace: true
+    values:
+      control_plane_namespace: "{{ control_plane_namespace }}" 
+      control_plane_name: "{{ control_plane_name }}"
+      route_hostname: "{{ route_info.resources[0].spec.host }}"
+  register: output
+- name: Installing bookinfo app
+  community.kubernetes.helm:
+    name: bookinfo
+    chart_ref: "../charts/install_bookinfo_basic_gateway_with_helm/bookinfo"
+    release_namespace: "{{ deploy_namespace }}"

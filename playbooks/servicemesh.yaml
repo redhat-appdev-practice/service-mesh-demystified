@@ -1,0 +1,6 @@
+---
+- name: Apply Service Mesh role to cluster
+  hosts: localhost
+
+  roles:
+    - servicemesh

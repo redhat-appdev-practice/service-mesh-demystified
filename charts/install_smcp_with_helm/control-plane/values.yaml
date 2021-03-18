@@ -1,0 +1,4 @@
+control_plane_name: basic-install
+is_production_deployment: false
+ingressgateway_name: custom-ingressgateway
+control_plane_namespace: istio-system

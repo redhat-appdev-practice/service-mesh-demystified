@@ -1,0 +1,6 @@
+global:
+  cluster:
+    baseDomain: apps.cluster-7428.7428.sandbox977.opentlc.com
+  tlsSecured: false
+
+redirectUrl: https://api-istio-system.{{ $.Values.global.cluster.baseDomain }}

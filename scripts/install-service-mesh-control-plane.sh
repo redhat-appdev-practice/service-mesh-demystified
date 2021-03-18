@@ -7,7 +7,7 @@ oc new-project ${MESH_CONTROL_PLANE}
 
 echo "Install control plane..."
 
-helm install control-plane -n ${MESH_CONTROL_PLANE} service-mesh/control-plane/
+helm install control-plane -n ${MESH_CONTROL_PLANE} charts/install_smcp_with_helm/control-plane/
 
 echo "Wait for control plane to finish deployment..."
 
