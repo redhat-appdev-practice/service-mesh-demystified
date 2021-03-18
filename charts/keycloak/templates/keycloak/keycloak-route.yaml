@@ -1,0 +1,24 @@
+apiVersion: route.openshift.io/v1
+kind: route
+metadata:
+  labels:
+    app: bookinfo
+    name: keycloak
+    {{- range $label := $.Values.global.labels }}
+    {{ $label.key }} : {{ tpl $label.value $ }}
+    {{- end }}
+  name: keycloak
+spec:
+  to:
+    name: keycloak
+  {{- if $.Values.global.tlsSecured }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: passthrough
+  port:
+    targetPort: https
+  {{- else }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge 
+  {{- end }}

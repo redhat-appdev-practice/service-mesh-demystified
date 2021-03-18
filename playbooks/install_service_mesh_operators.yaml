@@ -1,0 +1,6 @@
+---
+- name: Install Service Mesh Operators
+  hosts: localhost
+  
+  roles:
+  - install_sm_operators_with_helm

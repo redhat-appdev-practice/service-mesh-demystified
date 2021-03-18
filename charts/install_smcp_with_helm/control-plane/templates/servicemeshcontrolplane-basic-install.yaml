@@ -1,0 +1,104 @@
+apiVersion: maistra.io/v2
+kind: ServiceMeshControlPlane
+metadata:
+  name: {{ .Values.control_plane_name }}
+spec:
+  version: v2.0
+  security:
+    controlPlane:
+      mtls: true
+    dataPlane:
+      mtls: true
+  tracing:
+    sampling: 10000 
+    type: Jaeger
+  profiles:
+    - default
+  proxy:
+    runtime:
+      container:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  gateways:
+    additionalIngress:
+      {{ .Values.ingressgateway_name }}:
+        enabled: true
+        runtime:
+          container:
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+          deployment:
+            autoScaling:
+              enabled: true
+        service:
+          metadata:
+            labels:
+              app: {{ .Values.ingressgateway_name }}
+              istio: ingressgateway
+          ports:
+            - name: status-port
+              port: 15021
+              protocol: TCP
+              targetPort: 15021
+            - name: http2
+              port: 80
+              protocol: TCP
+              targetPort: 8080
+            - name: https
+              port: 443
+              protocol: TCP
+              targetPort: 8443
+            - name: tls
+              port: 15443
+              protocol: TCP
+              targetPort: 15443
+          type: ClusterIP
+    egress:
+      enabled: false
+      service: {}
+    ingress:
+      enabled: false
+      service: {}
+  addons:
+    grafana:
+      enabled: true
+    jaeger:
+{{- if .Values.is_production_deployment }}
+      name: jaeger-production
+      install:
+        storage:
+          type: Elasticsearch
+{{- else }}
+      name: jaeger
+      install:
+        storage:
+          type: Memory
+{{- end }}
+        ingress:
+          enabled: true
+    kiali:
+      enabled: true
+  runtime:
+    components:
+      grafana:
+        container:
+          resources:
+            requests:
+              cpu: 10m  
+              memory: 128Mi
+      kiali:
+        container:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      tracing.jaeger:
+        container:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi

@@ -1,0 +1,76 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: keycloak
+    name: keycloak
+    {{- range $label := $.Values.global.labels }}
+    {{ $label.key }} : {{ tpl $label.value $ }}
+    {{- end}}
+  name: keycloak
+spec:
+  strategy:
+    type: Rolling
+  replicas: 1
+  selector:
+    deploymentConfig: keycloak
+  template:
+    metadata:
+      labels:
+        app: bookinfo
+        deploymentConfig: keycloak
+      name: keycloak-deploy 
+    spec:
+      volumes:
+        - name: realm-import
+          secret:
+            secretName: keycloak-realms
+            defaultMode: 420
+        {{- if $.Values.global.tlsSecured}}
+        - name: keycloak-certificate
+          secret:
+            defaultMode: 420
+            secretName: keycloak
+        {{- end}}
+    containers:
+    - name: "keycloak"
+      image: "jboss/keycloak:10.0.2"
+      volumeMount:
+        - name: realm-import
+          mountPath: /tmp/import
+        {{- if $.Values.global.tlsSecured }}
+        - name: keycloak-certificate
+          mountPath: /etc/x509/https
+        {{- end }}
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      {{- if $.Values.global.tlsSecured }}
+      - containerPort: 8443
+        name: https
+        protocol: TCP
+      {{- end }}
+      resources:
+        limits:
+          cpu: '2'
+          memory: 2Gi
+        requests:
+          cpu: '1'
+          memory: 1Gi
+      env:
+        - name: KEYCLOAK_USER
+          value: {{ .Values.username }}
+        - name: KEYCLOAK_PASSWORD
+          value: {{ .Values.password }}
+        - name: KEYCLOAK_IMPORT
+          value: /tmp/import/realm.json
+        - name: DB_VENDOR
+          value: {{ .Values.dbVendor | default "h2" }}
+        - name: PROXY_ADDRESS_FORWARDING
+          value: 'true'
+        - name: JAVA_OPTS
+          value: >-
+            -Dkeycloak.profile.feature.upload_scripts=enabled
+            -Dorg.jboss.logmanager.nocolor=true
+  triggers:
+  - type: ConfigChange

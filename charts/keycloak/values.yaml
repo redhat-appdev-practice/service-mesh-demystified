@@ -1,0 +1,15 @@
+---
+url: keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}
+username: admin
+password: admin123
+
+global:
+  labels:
+    - key: helm.sh/chart
+      value: '{{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}'
+    - key: app.kubernetes.io/managed-by
+      value: "{{ $.Release.Service }}"
+    - key: app.kubernetes.io/instance
+      value: "{{ $Release.Name }}"
+    - key: app.kubernetes.io/version 
+      value: "{{ $.Chart.AppVersion }}"

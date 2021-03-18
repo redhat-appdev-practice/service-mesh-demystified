@@ -1,0 +1,6 @@
+---
+- name: Install the bookinfo app with basic gateway configuration
+  hosts: localhost
+
+  roles:
+    - install_bookinfo_basic_gateway_with_helm

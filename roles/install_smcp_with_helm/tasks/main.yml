@@ -1,0 +1,21 @@
+---
+- name: Install ServiceMeshControlplane
+  community.kubernetes.helm:
+    name: control-plane
+    chart_ref: "../charts/install_smcp_with_helm/control-plane"
+    release_namespace: "{{ control_plane_namespace }}"
+    create_namespace: true
+    values_files:
+      - "../charts/install_smcp_with_helm/control-plane/values.yaml"
+  register: output
+- name: Wait for ServiceMeshControlPlane Components to be ready
+  community.kubernetes.k8s_info:
+    api_version: maistra.io/v2
+    kind: ServiceMeshControlPlane 
+    namespace: "{{ control_plane_namespace }}"
+    name: "{{output['status']['values']['control_plane_name']}}"
+    wait: yes
+    wait_condition:
+      reason: ComponentsReady 
+      status: "True"
+      type: Ready
