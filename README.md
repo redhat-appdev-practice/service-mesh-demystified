@@ -15,10 +15,20 @@ You will also need [Helm](https://helm.sh) and the openshift client installed lo
 First, install the operators in the cluster.
 
 ```sh ./scripts/install-service-mesh-operators.sh```
+### With Ansible: 
+Run the playbook: 
+``` ansible-playbook playbooks/install_service_mesh_operators.yaml```
 
 ## Install the Control Plane
 
 ```sh ./scripts/install-service-mesh-control-plane.sh```
+
+### With Ansible:
+```ansible-playbook playbooks/install_service_mesh_controlplane.yaml```
+
+## (Optional) deploy the bookinfo application with minimial configurations:
+
+```ansible-playbook playbooks/install_bookinfo_basic_gateway.yml```
 
 # Service Mesh Deployment Examples
 
