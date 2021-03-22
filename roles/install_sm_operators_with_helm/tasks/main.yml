@@ -1,6 +1,6 @@
 ---
 - name: Install operators 
-  community.kubernetes.helm:
+  kubernetes.core.helm:
     name: service-mesh-operators
     chart_ref: "../charts/install_sm_operators_with_helm/service-mesh-operators"
     release_namespace: openshift-operators
@@ -54,3 +54,52 @@
 #      status: "False"
 #      type: CatalogSourcesUnhealthy
 #  when: approval_strategy == "Automatic"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

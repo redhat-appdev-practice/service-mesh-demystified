@@ -1,13 +1,13 @@
 ---
 - name: Create project for operator
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     name: operators-openshift-redhat
     api_version: v1
     kind: Namespace
     state: present
 
 - name: Create subscriptions for operators
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     src: "{{ item }}" 
   loop:
@@ -21,6 +21,6 @@
     minutes: 3
 
 - name: Create service mesh control plane
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     src: servicemeshcontrolplane.yaml
