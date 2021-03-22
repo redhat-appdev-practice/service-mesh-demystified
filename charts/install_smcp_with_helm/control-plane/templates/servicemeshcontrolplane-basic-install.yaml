@@ -19,8 +19,8 @@ spec:
       container:
         resources:
           requests:
-            cpu: 100m
-            memory: 128Mi
+            cpu: {{ .Values.smcp_proxy_runtime_cpu_requests }}
+            memory: {{ .Values.smcp_proxy_runtime_memory_requests }}
   gateways:
     additionalIngress:
       {{ .Values.ingressgateway_name }}:
@@ -29,8 +29,8 @@ spec:
           container:
             resources:
               requests:
-                cpu: 100m
-                memory: 128Mi
+                cpu: {{ .Values.smcp_gateway_additional_ingress_runtime_cpu_requests }}
+                memory: {{ .Values.smcp_gateway_additional_ingress_runtime_memory_requests }}
           deployment:
             autoScaling:
               enabled: true
@@ -88,17 +88,17 @@ spec:
         container:
           resources:
             requests:
-              cpu: 10m  
-              memory: 128Mi
+              cpu: {{ .Values.smcp_runtime_grafana_cpu_requests }}
+              memory: {{ .Values.smcp_runtime_grafana_memory_requests }}
       kiali:
         container:
           resources:
             requests:
-              cpu: 100m
-              memory: 128Mi
+              cpu: {{ .Values.smcp_runtime_kiali_cpu_requests }}
+              memory: {{ .Values.smcp_runtime_kiali_memory_requests }}
       tracing.jaeger:
         container:
           resources:
             requests:
-              cpu: 100m
-              memory: 128Mi
+              cpu: {{ .Values.smcp_runtime_tracing_jaeger_cpu_requests }}
+              memory: {{ .Values.smcp_runtime_tracing_jaeger_memory_requests }}
