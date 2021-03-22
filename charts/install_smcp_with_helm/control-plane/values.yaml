@@ -2,3 +2,16 @@ control_plane_name: basic-install
 is_production_deployment: false
 ingressgateway_name: custom-ingressgateway
 control_plane_namespace: istio-system
+smcp_proxy_runtime_cpu_requests: 100m
+smcp_proxy_runtime_memory_requests: 128Mi
+smcp_gateway_additional_ingress_runtime_cpu_requests: 100m
+smcp_gateway_additional_ingress_runtime_memory_requests: 128Mi
+smcp_runtime_grafana_cpu_requests: 10m
+smcp_runtime_grafana_memory_requests: 128Mi
+smcp_runtime_kiali_cpu_requests: 100m 
+smcp_runtime_kiali_memory_requests: 128Mi
+smcp_runtime_tracing_jaeger_cpu_requests: 100m
+smcp_runtime_tracing_jaeger_memory_requests: 128Mi
+
+
+
