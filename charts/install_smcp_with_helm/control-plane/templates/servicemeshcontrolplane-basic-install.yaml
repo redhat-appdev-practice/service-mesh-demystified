@@ -58,14 +58,14 @@ spec:
               targetPort: 15443
           type: ClusterIP
     egress:
-{{- if .Vaules.smcp_enable_custom_egress_config }}
+{{- if .Values.smcp_enable_custom_egress_config }}
 {{ .Files.Get smcp_custom_egress_config_file | indent 6 }}
 {{- else }}
       enabled: false
       service: {}
 {{- end }}
     ingress:
-{{- if .Vaules.smcp_enable_custom_ingress_config }}
+{{- if .Values.smcp_enable_custom_ingress_config }}
 {{ .Files.Get smcp_custom_ingress_config_file | indent 6 }}
 {{- else }}
       enabled: false
