@@ -1,0 +1,9 @@
+---
+- name: Install Keycloak
+  community.kubernetes.helm:
+    name: keycloak
+    chart_ref: "../charts/keycloak"
+    release_namespace: "{{ keycloak_namespace }}"
+    create_namespace: true
+    values_files: "{{ keycloak.values_files }}"
+  register: output

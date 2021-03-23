@@ -1,6 +1,6 @@
 # Deny All Egress by Default
 
-This scenario utilizes [EgressNetworkPolicy](https://docs.openshift.com/container-platform/4.5/rest_api/network_apis/egressnetworkpolicy-network-openshift-io-v1.html) with a default rule to deny all egress networking.
+This scenario utilizes [EgressNetworkPolicy](https://docs.openshift.com/container-platform/4.6/rest_api/network_apis/egressnetworkpolicy-network-openshift-io-v1.html) with a default rule to deny all egress networking.
 
 The example first creates a namespace for the application and installs the initial policy.  After this each application (there are currently two) will add their own ServiceEntry resources in the mesh and modify the EgressNetworkPolicy appropriately.  
 

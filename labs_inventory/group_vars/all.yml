@@ -1,0 +1,4 @@
+keycloak:
+  values_files: 
+    - "../values/env/values-opentlc.yaml"
+    - "../charts/keycloak/values.yaml"

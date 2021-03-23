@@ -1,0 +1,6 @@
+---
+- name: Apply Keycloak role to cluster
+  hosts: localhost
+
+  roles:
+    - keycloak

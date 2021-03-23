@@ -8,9 +8,6 @@ metadata:
   labels:
     app: bookinfo
     name: keycloak
-    {{- range $label := $.Values.global.labels }}
-    {{ $label.key }} : {{ tpl $label.value $ }}
-    {{- end}}
   name: keycloak
 spec:
   selector:

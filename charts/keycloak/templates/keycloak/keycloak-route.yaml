@@ -1,15 +1,13 @@
 apiVersion: route.openshift.io/v1
-kind: route
+kind: Route
 metadata:
   labels:
     app: bookinfo
     name: keycloak
-    {{- range $label := $.Values.global.labels }}
-    {{ $label.key }} : {{ tpl $label.value $ }}
-    {{- end }}
   name: keycloak
 spec:
   to:
+    kind: Service
     name: keycloak
   {{- if $.Values.global.tlsSecured }}
   tls:

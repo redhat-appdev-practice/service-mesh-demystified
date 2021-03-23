@@ -4,9 +4,6 @@ metadata:
   labels:
     app: keycloak
     name: keycloak
-    {{- range $label := $.Values.global.labels }}
-    {{ $label.key }} : {{ tpl $label.value $ }}
-    {{- end}}
   name: keycloak
 spec:
   strategy:
@@ -35,7 +32,7 @@ spec:
     containers:
     - name: "keycloak"
       image: "jboss/keycloak:10.0.2"
-      volumeMount:
+      volumeMounts:
         - name: realm-import
           mountPath: /tmp/import
         {{- if $.Values.global.tlsSecured }}
