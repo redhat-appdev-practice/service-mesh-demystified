@@ -12,6 +12,7 @@ smcp_runtime_kiali_cpu_requests: 100m
 smcp_runtime_kiali_memory_requests: 128Mi
 smcp_runtime_tracing_jaeger_cpu_requests: 100m
 smcp_runtime_tracing_jaeger_memory_requests: 128Mi
-
-
-
+smcp_enable_custom_ingress_config: false
+smcp_enable_custom_egress_config: false
+smcp_custom_ingress_config_file: "ingress.yaml"
+smcp_custom_egress_config_file: "egress.yaml"
