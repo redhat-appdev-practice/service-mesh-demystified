@@ -12,6 +12,11 @@ smcp_runtime_kiali_cpu_requests: 100m
 smcp_runtime_kiali_memory_requests: 128Mi
 smcp_runtime_tracing_jaeger_cpu_requests: 100m
 smcp_runtime_tracing_jaeger_memory_requests: 128Mi
-
-
-
+smcp_runtime_tracing_jaeger_elasticsearch_cpu_requests: "1"
+smcp_runtime_tracing_jaeger_elasticsearch_cpu_limits: "1"
+smcp_runtime_tracing_jaeger_elasticsearch_memory_requests: 1Gi
+smcp_runtime_tracing_jaeger_elasticsearch_memory_limits: 1Gi
+smcp_runtime_tracing_jaeger_collector_cpu_requests: 100m
+smcp_runtime_tracing_jaeger_collector_memory_requests: 256Mi
+smcp_runtime_tracing_jaeger_query_cpu_requests: 100m
+smcp_runtime_tracing_jaeger_query_memory_requests: 256Mi
