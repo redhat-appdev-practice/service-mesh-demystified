@@ -21,7 +21,7 @@ The following scripts invoke `helm install ...` commands using the `helm` binary
 ## Install with Ansible 
 The following Ansible Roles use modules from `kubernetes.core` collection to install the operators and control plane. The roles use the same Helm charts that the scripts above do.
 
-Learn more about how the Ansible roles and charts are being utilized together here<TODO: INSERT LINK TO FOLDER HERE>. 
+Learn more about how the Ansible roles and charts are being utilized together [here](roles/README.md) 
 
 1. Install the operators with the following playbook: 
 ``` ansible-playbook playbooks/install_service_mesh_operators.yaml```
