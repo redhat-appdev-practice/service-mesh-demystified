@@ -1,3 +1,6 @@
 control_plane_namespace: istio-system
 control_plane_name: basic-install
 route_hostname: example.com
+secure_route: false
+tls_secret_name: httpbin-credential   # Must be created manually!
+
