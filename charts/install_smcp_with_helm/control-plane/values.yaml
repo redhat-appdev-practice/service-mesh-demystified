@@ -16,3 +16,11 @@ smcp_enable_custom_ingress_config: false
 smcp_enable_custom_egress_config: false
 smcp_custom_ingress_config_file: "ingress.yaml"
 smcp_custom_egress_config_file: "egress.yaml"
+smcp_runtime_tracing_jaeger_elasticsearch_cpu_requests: "1"
+smcp_runtime_tracing_jaeger_elasticsearch_cpu_limits: "1"
+smcp_runtime_tracing_jaeger_elasticsearch_memory_requests: 1Gi
+smcp_runtime_tracing_jaeger_elasticsearch_memory_limits: 1Gi
+smcp_runtime_tracing_jaeger_collector_cpu_requests: 100m
+smcp_runtime_tracing_jaeger_collector_memory_requests: 256Mi
+smcp_runtime_tracing_jaeger_query_cpu_requests: 100m
+smcp_runtime_tracing_jaeger_query_memory_requests: 256Mi
