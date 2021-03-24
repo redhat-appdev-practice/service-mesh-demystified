@@ -4,6 +4,8 @@ ingressgateway_name: custom-ingressgateway
 control_plane_namespace: istio-system
 smcp_proxy_runtime_cpu_requests: 100m
 smcp_proxy_runtime_memory_requests: 128Mi
+smcp_gateway_ingress_runtime_cpu_requests: 100m
+smcp_gateway_ingress_runtime_memory_requests: 128Mi
 smcp_gateway_additional_ingress_runtime_cpu_requests: 100m
 smcp_gateway_additional_ingress_runtime_memory_requests: 128Mi
 smcp_runtime_grafana_cpu_requests: 10m
