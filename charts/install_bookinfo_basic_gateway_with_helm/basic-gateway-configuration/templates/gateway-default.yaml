@@ -8,10 +8,20 @@ spec:
   selector:
     istio: ingressgateway # use istio default controller
   servers:
+{{- if .Values.secure_route }}
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: {{ .Values.tls_secret_name }}
+{{- else }}
   - port:
       number: 80
       name: http
       protocol: HTTP
+{{- end }}
     hosts:
       - "{{ .Values.route_hostname }}"
 ...
