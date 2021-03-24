@@ -20,7 +20,8 @@ There is an additional benefit to this method. This allows the role to use the v
 ### Method 2
 
 1. Define the value in a `yml` file. The location of the file doesn't matter. The file should be structured following the same best practices as `values.yml`
-2. Reference the file using the `values_files` parameter of the `helm` module.   
+2. Reference the file using the `values_files` parameter of the `helm` module. 
+
    ```
    values_files: 
    - <file-name>.yml 
