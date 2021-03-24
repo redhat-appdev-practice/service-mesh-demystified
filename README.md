@@ -14,9 +14,13 @@ You will also need [Helm](https://helm.sh) and the openshift client installed lo
 The following scripts invoke `helm install ...` commands using the `helm` binary from local machine. 
 
 1. Install the operators in the cluster: 
-```sh ./scripts/install-service-mesh-operators.sh```
+```
+sh ./scripts/install-service-mesh-operators.sh
+```
 2. Install the control plane: 
-```sh ./scripts/install-service-mesh-control-plane.sh```
+```
+sh ./scripts/install-service-mesh-control-plane.sh
+```
 
 ## Install with Ansible 
 The following Ansible Roles use modules from `kubernetes.core` collection to install the operators and control plane. The roles use the same Helm charts that the scripts above do.
@@ -24,16 +28,21 @@ The following Ansible Roles use modules from `kubernetes.core` collection to ins
 Learn more about how the Ansible roles and charts are being utilized together [here](roles/README.md) 
 
 1. Install the operators with the following playbook: 
-``` ansible-playbook playbooks/install_service_mesh_operators.yaml```
+```
+ansible-playbook playbooks/install_service_mesh_operators.yaml
+```
 
 2. Install the control plane:
-```ansible-playbook playbooks/install_service_mesh_controlplane.yaml```
+```
+ansible-playbook playbooks/install_service_mesh_controlplane.yaml
+```
 
 # Service Mesh Deployment Examples
 
-Now that the control plane is installed, you may want to go through some examples to see how service mesh can be used. The installation of the bookinfo application with minimal gateway configuration is also automated with an Ansible role here <TODO: INSERT link to ansible doc>.
+Now that the control plane is installed, you may want to go through some examples to see how service mesh can be used. 
 
  - [Simple Ingress Gateway with Bookinfo](docs/simple-ingress-gateway-with-bookinfo.md)
+    - The installation of the bookinfo application with minimal gateway configuration is also automated with an Ansible role [here](roles/install_bookinfo_basic_gateway_with_helm)
  - [Deny all egress by default](docs/deny-all-egress-by-default.md)
  - [Upgrade OSSM Control Plane to 2.x](docs/upgrade-control-plane.md)
  - [Zero downtime upgrade](docs/zero-downtime-upgrade.md)
