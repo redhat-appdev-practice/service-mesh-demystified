@@ -6,51 +6,51 @@
     release_namespace: openshift-operators
     values:
       approval_strategy: "{{ approval_strategy }}"
-#- name: Wait for Elasticsearch operator to install
-#  community.kubernetes.k8s_info:
-#    api_version: operators.coreos.com/v1alpha1
-#    kind: Subscription
-#    namespace: openshift-operators
-#    name: elasticsearch-operator 
-#    wait: yes
-#    wait_condition:
-#      reason: AllCatalogSourcesHealthy
-#      status: "False"
-#      type: CatalogSourcesUnhealthy
-#  when: approval_strategy == "Automatic"
-#- name: Wait for Jaeger operator to install
-#  community.kubernetes.k8s_info:
-#    api_version: operators.coreos.com/v1alpha1
-#    kind: Subscription
-#    namespace: openshift-operators
-#    name: jaeger-product 
-#    wait: yes
-#    wait_condition:
-#      reason: AllCatalogSourcesHealthy
-#      status: "False"
-#      type: CatalogSourcesUnhealthy
-#  when: approval_strategy == "Automatic"
-#- name: Wait for Kiali operator to install
-#  community.kubernetes.k8s_info:
-#    api_version: operators.coreos.com/v1alpha1
-#    kind: Subscription
-#    namespace: openshift-operators
-#    name: kiali-ossm 
-#    wait: yes
-#    wait_condition:
-#      reason: AllCatalogSourcesHealthy
-#      status: "False"
-#      type: CatalogSourcesUnhealthy
-#  when: approval_strategy == "Automatic"
-#- name: Wait for Servicemesh operator to install
-#  community.kubernetes.k8s_info:
-#    api_version: operators.coreos.com/v1alpha1
-#    kind: Subscription
-#    namespace: openshift-operators
-#    name: servicemeshoperator 
-#    wait: yes
-#    wait_condition:
-#      reason: AllCatalogSourcesHealthy
-#      status: "False"
-#      type: CatalogSourcesUnhealthy
-#  when: approval_strategy == "Automatic"
+- name: Wait Until Elasticsearch Subscription Is Deployed
+  kubernetes.core.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    name: "elasticsearch-operator"
+    namespace: openshift-operators 
+  register: r_subscription_elasticsearch
+  retries: 25
+  delay: 5
+  until:
+     - r_subscription_elasticsearch.resources[0].status.currentCSV is defined
+     - r_subscription_elasticsearch.resources[0].status.currentCSV | length > 0
+- name: Wait Until Jaeger Subscription Is Deployed
+  kubernetes.core.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    name: jaeger-product
+    namespace: openshift-operators 
+  register: r_subscription_jaeger
+  retries: 25
+  delay: 2
+  until:
+     - r_subscription_jaeger.resources[0].status.currentCSV is defined
+     - r_subscription_jaeger.resources[0].status.currentCSV | length > 0
+- name: Wait Until Kiali Subscription Is Deployed
+  kubernetes.core.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    name: kiali-ossm
+    namespace: openshift-operators 
+  register: r_subscription_kiali_ossm
+  retries: 25
+  delay: 2
+  until:
+     - r_subscription_kiali_ossm.resources[0].status.currentCSV is defined
+     - r_subscription_kiali_ossm.resources[0].status.currentCSV | length > 0
+- name: Wait Until Service Mesh Subscription Is Deployed
+  kubernetes.core.k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    name: servicemeshoperator
+    namespace: openshift-operators 
+  register: r_subscription_servicemeshoperator
+  retries: 25
+  delay: 2
+  until:
+     - r_subscription_servicemeshoperator.resources[0].status.currentCSV is defined
+     - r_subscription_servicemeshoperator.resources[0].status.currentCSV | length > 0
