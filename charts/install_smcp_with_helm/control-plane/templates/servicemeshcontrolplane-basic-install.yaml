@@ -4,17 +4,25 @@ metadata:
   name: {{ .Values.control_plane_name }}
 spec:
   version: v2.0
+{{- if .Values.enable_mtls_security }}
   security:
     controlPlane:
       mtls: true
     dataPlane:
       mtls: true
+{{- end }}
   tracing:
+{{- if .Values.disable_tracing }}
+    type: None
+{{- else }}
     sampling: 10000 
     type: Jaeger
+{{- end }}
   profiles:
     - default
   proxy:
+    injection:
+      autoInject: {{ .Values.proxy_autoinjection }}
     runtime:
       container:
         resources:
@@ -22,58 +30,23 @@ spec:
             cpu: {{ .Values.smcp_proxy_runtime_cpu_requests }}
             memory: {{ .Values.smcp_proxy_runtime_memory_requests }}
   gateways:
-    additionalIngress:
-      {{ .Values.ingressgateway_name }}:
-        enabled: true
-        runtime:
-          container:
-            resources:
-              requests:
-                cpu: {{ .Values.smcp_gateway_additional_ingress_runtime_cpu_requests }}
-                memory: {{ .Values.smcp_gateway_additional_ingress_runtime_memory_requests }}
-          deployment:
-            autoScaling:
-              enabled: true
-        service:
-          metadata:
-            labels:
-              app: {{ .Values.ingressgateway_name }}
-              istio: ingressgateway
-          ports:
-            - name: status-port
-              port: 15021
-              protocol: TCP
-              targetPort: 15021
-            - name: http2
-              port: 80
-              protocol: TCP
-              targetPort: 8080
-            - name: https
-              port: 443
-              protocol: TCP
-              targetPort: 8443
-            - name: tls
-              port: 15443
-              protocol: TCP
-              targetPort: 15443
-          type: ClusterIP
     egress:
 {{- if .Values.smcp_enable_custom_egress_config }}
-{{ .Files.Get (.Values.smcp_custom_egress_config_file) | indent 6 }}
+{{ .Files.Get .Values.smcp_custom_egress_config_file | indent 6 }}
 {{- else }}
       enabled: false
       service: {}
 {{- end }}
     ingress:
 {{- if .Values.smcp_enable_custom_ingress_config }}
-{{ .Files.Get (.Values.smcp_custom_ingress_config_file) | indent 6 }}
+{{ .Files.Get .Values.smcp_custom_ingress_config_file | indent 6 }}
 {{- else }}
-      enabled: false
+      enabled: true
       service: {}
 {{- end }}
   addons:
     grafana:
-      enabled: true
+      enabled: {{ .Values.enable_grafana }}
     jaeger:
 {{- if .Values.is_production_deployment }}
       name: jaeger-production
@@ -89,7 +62,10 @@ spec:
         ingress:
           enabled: true
     kiali:
-      enabled: true
+      enabled: {{ .Values.enable_kiali }}
+    prometheus:
+      enabled: {{ .Values.enable_prometheus }}
+{{- if or .Values.enable_kiali .Values.enable_grafana .Values.enable_prometheus }}
   runtime:
     components:
       grafana:
@@ -109,4 +85,4 @@ spec:
           resources:
             requests:
               cpu: {{ .Values.smcp_runtime_tracing_jaeger_cpu_requests }}
-              memory: {{ .Values.smcp_runtime_tracing_jaeger_memory_requests }}
+              memory: {{ .Values.smcp_runtime_tracing_jaeger_memory_requests }}o{{- end }}

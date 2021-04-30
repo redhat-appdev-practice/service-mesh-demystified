@@ -1,2 +1,35 @@
-enabled: true
-service: {}
+additionalIngress:
+{{ .Values.ingressgateway_name }}:
+  enabled: true
+  runtime:
+    container:
+      resources:
+        requests:
+          cpu: {{ .Values.smcp_gateway_additional_ingress_runtime_cpu_requests }}
+          memory: {{ .Values.smcp_gateway_additional_ingress_runtime_memory_requests }}
+    deployment:
+      autoScaling:
+        enabled: true
+  service:
+    metadata:
+      labels:
+        app: {{ .Values.ingressgateway_name }}
+        istio: ingressgateway
+    ports:
+      - name: status-port
+        port: 15021
+        protocol: TCP
+        targetPort: 15021
+      - name: http2
+        port: 80
+        protocol: TCP
+        targetPort: 8080
+      - name: https
+        port: 443
+        protocol: TCP
+        targetPort: 8443
+      - name: tls
+        port: 15443
+        protocol: TCP
+        targetPort: 15443
+    type: ClusterIP
