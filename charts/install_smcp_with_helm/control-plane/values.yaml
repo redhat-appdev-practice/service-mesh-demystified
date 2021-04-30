@@ -1,11 +1,32 @@
+# If you wish different SMCP types, copy this file to another file (e.g.
+# values.prod.yaml) and modify it. Then specify the new values
+# file when running the Helm chart (e.g. helm install . -f values.prod.yaml )
+
+#Change the name of the control plane for each different SMCP instance
 control_plane_name: basic-install
+
+# These flags determine basic configuration decisions
 is_production_deployment: false
+enable_grafana: false
+enable_kiali: false
+enable_prometheus: false
+proxy_autoinjection: false
+
+# Name of the ingress gateway (if applicable)
 ingressgateway_name: custom-ingressgateway
+
+# Where the control planes reside - should not change between SMCP instances
 control_plane_namespace: istio-system
+
+# Enable MTLS?
+enable_mtls_security: false
+
+# Disable tracing?
+disable_tracing: true
+
+# SMCP limits
 smcp_proxy_runtime_cpu_requests: 100m
 smcp_proxy_runtime_memory_requests: 128Mi
-smcp_gateway_ingress_runtime_cpu_requests: 100m
-smcp_gateway_ingress_runtime_memory_requests: 128Mi
 smcp_gateway_additional_ingress_runtime_cpu_requests: 100m
 smcp_gateway_additional_ingress_runtime_memory_requests: 128Mi
 smcp_runtime_grafana_cpu_requests: 10m
@@ -14,10 +35,20 @@ smcp_runtime_kiali_cpu_requests: 100m
 smcp_runtime_kiali_memory_requests: 128Mi
 smcp_runtime_tracing_jaeger_cpu_requests: 100m
 smcp_runtime_tracing_jaeger_memory_requests: 128Mi
+
+# Advanced configuration items below this line. These examples are good for most
+# production environments, and should only need to be changed in response to
+# specific developer requests.
+
+# If this is true, you must create the ingress.yaml file.
 smcp_enable_custom_ingress_config: false
-smcp_enable_custom_egress_config: false
 smcp_custom_ingress_config_file: "ingress.yaml"
+
+# If this is true, you must create the egress.yaml file
+smcp_enable_custom_egress_config: false
 smcp_custom_egress_config_file: "egress.yaml"
+
+# Jaeger specific limits
 smcp_runtime_tracing_jaeger_elasticsearch_cpu_requests: "1"
 smcp_runtime_tracing_jaeger_elasticsearch_cpu_limits: "1"
 smcp_runtime_tracing_jaeger_elasticsearch_memory_requests: 1Gi
